@@ -10,6 +10,7 @@ import seniorsRouter from './routes/seniorRoutes.js';
 import choices from './routes/choiceRoutes.js';
 import videos from './routes/videoRoutes.js';
 import plans from './routes/planRoutes.js';
+import blogs from './routes/blogRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/api/content', contentRoutes);
 app.use('/api/seniors', seniorsRouter);
 app.use('/api/choices', choices);
 app.use('/api/videos', videos);
+app.use('/api/blogs', blogs);
 app.use('/api/plans', plans);
 
 
