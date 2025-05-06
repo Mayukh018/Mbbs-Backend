@@ -1,4 +1,16 @@
 import User from '../models/userModel.js';
+import College from '../models/collegeModel.js';
+
+
+export const getColleges = async (req, res) => {
+  try {
+      const colleges = await College.find({});
+      res.status(200).json({ success: true, colleges });
+  } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+  }
+}
+
 
 export const createChoiceList = async (req, res) => {
   const { listName } = req.body;
