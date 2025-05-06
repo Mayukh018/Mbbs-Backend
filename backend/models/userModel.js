@@ -8,22 +8,17 @@ const userSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    enum: ['Male', 'Female', 'Others'],
   },
   fathersName: {
     type: String,
     trim: true
   },
-
-  // Location Information
   state: {
     type: String,
   },
   city: {
     type: String,
   },
-
-  // Category and Classification
   category: {
     type: String,
   },
@@ -37,7 +32,10 @@ const userSchema = new mongoose.Schema({
   },
 
   // Ranking and Quota Information
-  rank: {
+  inputType: {
+    type:String,
+  },
+  value:{
     type: Number,
   },
   reservationQuota: {

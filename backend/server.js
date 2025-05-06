@@ -11,6 +11,7 @@ import choices from './routes/choiceRoutes.js';
 import videos from './routes/videoRoutes.js';
 import plans from './routes/planRoutes.js';
 import blogs from './routes/blogRoutes.js';
+import contactus from './routes/contactRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -37,6 +38,7 @@ app.use('/api/choices', choices);
 app.use('/api/videos', videos);
 app.use('/api/blogs', blogs);
 app.use('/api/plans', plans);
+app.use('/api/contact', contactus);
 
 
 

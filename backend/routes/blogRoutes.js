@@ -1,4 +1,4 @@
-import { getBlogs } from "../controllers/getBlogs";
+import { getBlogs } from "../controllers/getBlogs.js";
 import express from "express";
 
 

@@ -170,7 +170,8 @@ export const getUser = async (req, res) => {
             success: true,
             data: {
                 name: user.name,
-                rank: user.rank,
+                inputType: user.inputType,
+                value: user.value,
                 category: user.category,
                 state: user.state,
                 city: user.city,
