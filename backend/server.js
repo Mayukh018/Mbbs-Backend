@@ -12,6 +12,7 @@ import videos from './routes/videoRoutes.js';
 import plans from './routes/planRoutes.js';
 import blogs from './routes/blogRoutes.js';
 import contactus from './routes/contactRoutes.js';
+import compare from './routes/compareListRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -39,6 +40,7 @@ app.use('/api/videos', videos);
 app.use('/api/blogs', blogs);
 app.use('/api/plans', plans);
 app.use('/api/contact', contactus);
+app.use('/api/checkList', compare);
 
 
 

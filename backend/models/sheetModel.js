@@ -14,4 +14,6 @@ const sheetSchema = new mongoose.Schema({
 {
     timestamps: true,
 });
-const Sheet = mongoose.model("Sheet", sheetSchema);
+
+const Sheet = mongoose.model.Sheet || mongoose.model("Sheet", sheetSchema);
+export default Sheet;
