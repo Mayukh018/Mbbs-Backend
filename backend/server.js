@@ -13,6 +13,7 @@ import plans from './routes/planRoutes.js';
 import blogs from './routes/blogRoutes.js';
 import contactus from './routes/contactRoutes.js';
 import compare from './routes/compareListRoutes.js';
+import getCollegesRoute from './routes/listInstitutesRoute.js';
 dotenv.config();
 
 const app = express();
@@ -41,6 +42,7 @@ app.use('/api/blogs', blogs);
 app.use('/api/plans', plans);
 app.use('/api/contact', contactus);
 app.use('/api/checkList', compare);
+app.use('/api/getColleges', getCollegesRoute);
 
 
 

@@ -7,10 +7,6 @@ const extractSheetId = (sheetUrl) => {
     const match = sheetUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
     return match ? match[1] : null;
   };
-
-// Compare with User's Saved Preferences
-import User from '../models/userModel.js';
-
 export const compareWithSavedChoices = async (req, res) => {
   try {
     const userId = req.user._id;
