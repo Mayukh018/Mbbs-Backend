@@ -13,16 +13,50 @@ export const getColleges = async (req, res) => {
 
 
 export const createChoiceList = async (req, res) => {
-  const { listName } = req.body;
-  const user = req.user;
   try {
-    user.preferences.push({ listName, colleges: [] });
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'User not found' });
+    }
+
+    const { listName } = req.body;
+
+    if (!listName) {
+      return res.status(400).json({ success: false, message: 'List name is required' });
+    }
+
+    const existingLists = user.preferences || [];
+
+    if (existingLists.length >= 1 && !user.services.ChoiceFilling.isActive) {
+      return res.status(403).json({
+        success: false,
+        message: 'Only one choice list is allowed for free. Please upgrade your plan to create more.'
+      });
+    }
+
+    user.preferences.push({
+      listName,
+      colleges: []
+    });
+
     await user.save();
-    res.status(201).json(user.preferences);
-  } catch (err) {
-    res.status(500).json({ message: 'Error creating list', error: err });
+
+    return res.status(201).json({
+      success: true,
+      message: 'Choice list created successfully',
+      preferences: user.preferences
+    });
+
+  } catch (error) {
+    console.error('Error creating choice list:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    });
   }
 };
+
 
 /**
  * Add a college to a user's list

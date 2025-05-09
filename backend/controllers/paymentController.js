@@ -4,23 +4,23 @@ import Payment from '../models/transactionModel.js';
 const SERVICE_CONFIG = {
     Plan_A: {
         price: 0,
-        unlocks: ['checkYourList','choiceFillingPortal'] 
+        unlocks: ['checkYourList','ChoiceFilling'] 
     },
     Plan_B: {
         price: 0,
-        unlocks: ['premiumContent', 'collegePredictor','checkYourList','choiceFillingPortal','callSenior']
+        unlocks: ['premiumContent', 'collegePredictor','checkYourList','ChoiceFilling','callSenior']
     },
     Offline_Plan:{
         price: 0,
-        unlocks: ['premiumContent', 'collegePredictor','checkYourList','choiceFillingPortal','callSenior']
+        unlocks: ['premiumContent', 'collegePredictor','checkYourList','ChoiceFilling','callSenior']
     },
     Freedom_Plan:{
         price: 0,
-        unlocks: ['premiumContent', 'collegePredictor','checkYourList','choiceFillingPortal','callSenior']
+        unlocks: ['premiumContent', 'collegePredictor','checkYourList','ChoiceFilling','callSenior']
     },
     Online_Plan_A:{
         price: 0,
-        unlocks: ['premiumContent', 'collegePredictor','checkYourList','choiceFillingPortal','callSenior']
+        unlocks: ['premiumContent', 'collegePredictor','checkYourList','ChoiceFilling','callSenior']
     },
     premiumContent: {
         price: 0,
@@ -73,10 +73,6 @@ export const processPayment = async (req, res) => {
   
         if (service === 'collegePredictor') {
           update.$set['services.collegePredictor.searchesLeft'] = 0;
-        }
-  
-        if (service === 'premiumContent') {
-          update.$set['services.premiumContent.expiresAt'] = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
         }
       }
   

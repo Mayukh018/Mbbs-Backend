@@ -50,8 +50,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null
   },
-
-  // Authentication fields
   phoneNumber: {
     type: String,
     required: true,
@@ -72,7 +70,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
-
   hasUpdatedProfile: {
     type: Boolean,
     default: false
@@ -81,19 +78,17 @@ const userSchema = new mongoose.Schema({
     type:String,
   }],
   services: {
-    counselling: {
-      planType: Object,
-      expiryDate: Date
+    ChoiceFilling:{
+      isActive: { type: Boolean, default: false },
+      unlockedVia: String,
     },
     premiumContent: {
       isActive: { type: Boolean, default: false },
       unlockedVia: String,
-      expiresAt: Date
     },
     callSenior: {
       isActive: { type: Boolean, default: false },
       unlockedVia: String,
-      expiresAt: Date
     },
     collegePredictor: {
       isActive: Boolean,

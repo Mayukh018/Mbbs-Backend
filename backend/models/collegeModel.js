@@ -15,6 +15,9 @@ const collegeSchema = new mongoose.Schema({
     required: true,
     index: true
   },
+  listOfNames: {
+    type: [String],
+  },
   state:{
     type: String,
   },

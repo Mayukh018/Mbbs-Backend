@@ -202,13 +202,10 @@ export const updateUserProfile = async (req, res) => {
         }
 
         const { rank, category, marks } = req.body;
-
-        // Update allowed fields
         if (rank !== undefined) user.rank = rank;
         if (category) user.category = category;
         if (marks !== undefined) user.marks = marks;
 
-        // Mark as updated
         user.hasUpdatedProfile = true;
 
         await user.save();
