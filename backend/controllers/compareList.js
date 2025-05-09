@@ -9,29 +9,62 @@ const extractSheetId = (sheetUrl) => {
   };
 
 // Compare with User's Saved Preferences
+import User from '../models/userModel.js';
+
 export const compareWithSavedChoices = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { parsedChoices } = req.body;
+    const { parsedChoices, listName } = req.body;
 
-    if (!Array.isArray(parsedChoices)) {
-      return res.status(400).json({ success: false, message: 'parsedChoices must be an array' });
+    // Input validation
+    if (!Array.isArray(parsedChoices) || parsedChoices.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'parsedChoices must be a non-empty array',
+      });
     }
 
+    // Fetch user's saved preferences
     const user = await User.findById(userId).select('preferences');
     if (!user?.preferences?.length) {
-      return res.status(404).json({ success: false, message: 'No saved preferences found' });
+      return res.status(404).json({
+        success: false,
+        message: 'No saved preferences found',
+      });
     }
 
-    const savedChoices = user.preferences.at(-1).colleges;
-    const savedSet = new Set(savedChoices.map(c => c.trim().toLowerCase()));
+    // Determine which preference list to use
+    const preference = listName
+      ? user.preferences.find(p => p.listName === listName)
+      : user.preferences.at(-1); // Use the latest one if no listName provided
 
-    const matches = parsedChoices.filter(choice =>
-      savedSet.has(choice.trim().toLowerCase())
+    if (!preference || !preference.colleges?.length) {
+      return res.status(404).json({
+        success: false,
+        message: listName
+          ? `No preference list found with name "${listName}"`
+          : 'No valid saved preferences available',
+      });
+    }
+
+    const savedSet = new Set(
+      preference.colleges.map(c => c.trim().toLowerCase())
     );
-    const notMatched = parsedChoices.filter(choice =>
-      !savedSet.has(choice.trim().toLowerCase())
-    );
+
+    // Normalize parsedChoices once
+    const parsedNormalized = parsedChoices.map(c => c.trim().toLowerCase());
+
+    const matches = [];
+    const notMatched = [];
+
+    parsedChoices.forEach((originalChoice, index) => {
+      const normalized = parsedNormalized[index];
+      if (savedSet.has(normalized)) {
+        matches.push(originalChoice);
+      } else {
+        notMatched.push(originalChoice);
+      }
+    });
 
     res.json({ success: true, matches, notMatched });
   } catch (error) {
@@ -39,7 +72,7 @@ export const compareWithSavedChoices = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Internal server error',
-      error: error.message
+      error: error.message,
     });
   }
 };
