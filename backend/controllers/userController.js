@@ -201,6 +201,7 @@ export const getUser = async (req, res) => {
                 category: user.category,
                 state: user.state,
                 city: user.city,
+                fathersName: user.fathersName,
             }
         });
     } catch (error) {
