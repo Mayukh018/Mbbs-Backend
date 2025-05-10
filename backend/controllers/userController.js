@@ -38,7 +38,7 @@ export const registerUser = async (req, res) => {
 
         const user = await newUser.save();
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '28d' });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -68,7 +68,7 @@ export const signUpMobile = async (req, res) => {
             phoneNumber,
         });
         const user = await newAppUser.save();
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '28d' });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'development',
@@ -106,7 +106,7 @@ export const verifyLoginOTP = async (req, res) => {
         return res.json({ success: false, message: "User not found" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 2500000 });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     res.cookie('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'development',
