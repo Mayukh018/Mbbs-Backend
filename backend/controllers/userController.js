@@ -113,7 +113,7 @@ export const verifyLoginOTP = async (req, res) => {
         sameSite: 'Strict',
         maxAge: 7 * 24 * 60 * 60 * 1000 * 4 // 28 days
     });
-    res.json({ success: true, user: { name: user.name || user.phoneNumber } });
+    res.json({ success: true, token, user: { name: user.name || user.phoneNumber } });
 };
 
 export const logoutUser = (req, res) => {
